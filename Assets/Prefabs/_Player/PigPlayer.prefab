@@ -98,13 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minBounceElevation: 0.1
-  maxBounceElevation: 1
-  minBounceAngle: -20
-  maxBounceAngle: 20
+  maxBounceElevation: 2
+  minBounceAngle: -10
+  maxBounceAngle: 10
   bounceFadeFactor: 5
-  bounceSpeed: 5
-  rotationSpeed: 70
-  rotationFrequency: 2
+  bounceSpeed: 0.25
+  rotationSpeed: 0.15
 --- !u!1 &2467965312653966538
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +324,8 @@ GameObject:
   - component: {fileID: 8093526820683419381}
   - component: {fileID: 8093526820683419382}
   - component: {fileID: 6392907709089593422}
+  - component: {fileID: 5302788589860794655}
+  - component: {fileID: 8998499939298655344}
   m_Layer: 0
   m_Name: PigPlayer
   m_TagString: Untagged
@@ -409,5 +410,39 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  runSpeed: 5
+  runSpeed: 10
   localObjects: {fileID: 2467965312653966538}
+  collider: {fileID: 5302788589860794655}
+  rb: {fileID: 8998499939298655344}
+  walkMaterial: {fileID: 13400000, guid: 6904759fc13720a4cb8691d697f63a9c, type: 2}
+  standMaterial: {fileID: 13400000, guid: 24f92d3f83ae4b34085d6561f263f2ac, type: 2}
+--- !u!136 &5302788589860794655
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093526820683419383}
+  m_Material: {fileID: 13400000, guid: 6904759fc13720a4cb8691d697f63a9c, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &8998499939298655344
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093526820683419383}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 0
