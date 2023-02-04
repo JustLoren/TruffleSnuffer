@@ -35,8 +35,14 @@ public class InGameUI : MonoBehaviour
     }
 
     public void SetTruffleCount(int count)
-    {
+    {        
         truffleCount.text = count.ToString();
+    }
+
+    public GameObject truffleGainFx;
+    public void SpawnTruffleGainFX()
+    {
+        Instantiate(truffleGainFx, this.transform);        
     }
 
     private void OnDestroy()

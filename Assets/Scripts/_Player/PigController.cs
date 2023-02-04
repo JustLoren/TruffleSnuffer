@@ -102,7 +102,10 @@ public class PigController : NetworkBehaviour
     private void UpdateTruffleCount(int _old, int _new)
     {
         if (isLocalPlayer)
+        {
             InGameUI.Instance.SetTruffleCount(_new);
+            InGameUI.Instance.SpawnTruffleGainFX();
+        }
     }
     #endregion
 
