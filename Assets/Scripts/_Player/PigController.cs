@@ -82,7 +82,6 @@ public class PigController : NetworkBehaviour
         if (truffle != null && distance <= gatherDistance)
         {
             GatherTruffle(truffle);
-
         } 
         else
         {
@@ -102,7 +101,8 @@ public class PigController : NetworkBehaviour
 
     private void UpdateTruffleCount(int _old, int _new)
     {
-        Debug.Log($"Updated from {_old} to {_new} truffles");
+        if (isLocalPlayer)
+            InGameUI.Instance.SetTruffleCount(_new);
     }
     #endregion
 
@@ -154,6 +154,8 @@ public class PigController : NetworkBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        InGameUI.Instance.Show();
     }
 
     private void FixedUpdate()
@@ -190,5 +192,7 @@ public class PigController : NetworkBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        InGameUI.Instance.Show();        
     }
 }
