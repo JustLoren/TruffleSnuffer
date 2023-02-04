@@ -32,6 +32,8 @@ public class TruffleSpawner : NetworkBehaviour
     #endregion
 
     public ProximityAlert trufflePrefab;
+    public GameObject molePrefab;
+    public float moleLifetime = 5f;
     public List<Transform> spawnPoints = new List<Transform>();
 
     private void SpawnTruffle()
@@ -55,5 +57,16 @@ public class TruffleSpawner : NetworkBehaviour
             SpawnTruffle();
 
         spawnPoints.Add(point);
+    }
+
+    public void ExpireTruffle(GameObject truffle)
+    {
+        var mole = Instantiate(molePrefab, truffle.transform.position, truffle.transform.rotation);
+
+        NetworkServer.Spawn(mole);
+
+        Destroy(mole, moleLifetime);
+
+        Destroy(truffle);
     }
 }

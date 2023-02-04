@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 10.00366, z: -14.00512}
+  m_FollowOffset: {x: 0, y: 10.12246, z: -14.17144}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -843,7 +843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 10.00366, z: -14.00512}
+  m_FollowOffset: {x: 0, y: 10.12246, z: -14.17144}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -2383,7 +2383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 10.00366, z: -14.00512}
+  m_FollowOffset: {x: 0, y: 10.12246, z: -14.17144}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -2738,6 +2738,9 @@ MonoBehaviour:
   maxTruffleCount: 5
   trufflePrefab: {fileID: 7933161120187940540, guid: 8c8ec54b35329ec4faaab51c9e77bea0,
     type: 3}
+  molePrefab: {fileID: 4065276329084696850, guid: bf98a54ee94edb94891f6091044feb40,
+    type: 3}
+  moleLifetime: 5
   spawnPoints:
   - {fileID: 1443277500}
   - {fileID: 1156969072}

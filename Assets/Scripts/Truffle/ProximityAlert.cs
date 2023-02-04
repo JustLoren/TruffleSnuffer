@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProximityAlert : MonoBehaviour
 {
-    public Transform spawnPoint;
+    public Transform spawnPoint;    
     public SphereCollider sensor;
     private void OnTriggerStay(Collider other)
     {

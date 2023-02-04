@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 828856935484237954}
   - component: {fileID: 7933161120187940540}
   - component: {fileID: 7933161120187940539}
+  - component: {fileID: 7195561640377854380}
   m_Layer: 0
   m_Name: Buried Truffle
   m_TagString: Untagged
@@ -64,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9bed98f5e61254687bc73a9d26a835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
   sensor: {fileID: 7933161120888479197}
 --- !u!54 &7933161120187940539
 Rigidbody:
@@ -81,6 +83,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7195561640377854380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933161120187940542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92898d34d2082b44e96d2d1b28dc3fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minLifetime: 10
+  maxLifetime: 15
 --- !u!1 &7933161120888479199
 GameObject:
   m_ObjectHideFlags: 0
