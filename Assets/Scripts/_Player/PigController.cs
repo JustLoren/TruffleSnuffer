@@ -1,13 +1,113 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PigController : NetworkBehaviour
 {
-    public float runSpeed = 1f;
     public GameObject localObjects;
+
+    #region Snuffling
+    [SyncVar(hook = nameof(UpdateTruffleCount))] 
+    public int trufflesGathered = 0;
+    public ParticleSystem smellParticples;
+    private float particleEmissionRate;
+
+    private Dictionary<GameObject, float> nearbyTruffles = new Dictionary<GameObject, float>();
+
+    public void AddTruffle(GameObject truffle, float distance)
+    {
+        if (nearbyTruffles.ContainsKey(truffle))
+            nearbyTruffles[truffle] = distance;
+        else
+            nearbyTruffles.Add(truffle, distance);
+    }
+
+    public void RemoveTruffle(GameObject truffle)
+    {
+        nearbyTruffles.Remove(truffle);
+    }
+
+    private void Update()
+    {
+        if (particleEmissionRate <= 0)
+        {
+            var initEmission = smellParticples.emission;
+            particleEmissionRate = initEmission.rateOverTimeMultiplier;
+            initEmission.rateOverTimeMultiplier = 0f;
+        }
+
+        if (!isLocalPlayer) return;
+
+        (_, var minDistance) = ClosestTruffle();
+
+        var emission = smellParticples.emission;
+
+        var invMinDist = 1 - minDistance;
+        emission.rateOverTimeMultiplier = (invMinDist * invMinDist) * particleEmissionRate;
+
+        //Select is only valid for a single frame
+        if (selectInput)
+            TriggerSelect();
+
+        selectInput = false;
+    }
+
+    private (GameObject, float) ClosestTruffle()
+    {        
+        KeyValuePair<GameObject, float> pair = new KeyValuePair<GameObject, float>(null, 1f);
+        foreach(var truffle in nearbyTruffles.Keys.ToList())
+        {
+            if (truffle == null)
+                nearbyTruffles.Remove(truffle);
+        }    
+        foreach(var truffle in nearbyTruffles)
+        {
+            if (truffle.Value < pair.Value)
+            {
+                pair = truffle;
+            }
+        }
+
+        return (pair.Key, pair.Value);
+    }
+
+    [Tooltip("How far away can a truffle be gathered, measured in percentage of truffle detection range.")]
+    public float gatherDistance = .1f;
+    private void TriggerSelect()
+    {
+        (var truffle, var distance) = ClosestTruffle();
+        if (truffle != null && distance <= gatherDistance)
+        {
+            GatherTruffle(truffle);
+
+        } 
+        else
+        {
+            Debug.Log("Failed truffle gathering. Womp womp!");
+        }
+    }
+
+    [Command]
+    private void GatherTruffle(GameObject truffle)
+    {
+        if (truffle != null)
+        {
+            Destroy(truffle);
+            trufflesGathered++;
+        }
+    }
+
+    private void UpdateTruffleCount(int _old, int _new)
+    {
+        Debug.Log($"Updated from {_old} to {_new} truffles");
+    }
+    #endregion
+
+    #region Locomotion BS
+    public float runSpeed = 1f;
     public new CapsuleCollider collider;
     public Rigidbody rb;
     public PhysicMaterial walkMaterial, standMaterial;
@@ -50,16 +150,20 @@ public class PigController : NetworkBehaviour
         var cineMachine = FindObjectOfType<Cinemachine.CinemachineFreeLook>();
         cineMachine.Follow = this.transform;
         cineMachine.LookAt = this.transform;
+        cineMachine.enabled = true;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void FixedUpdate()
     {
         if (!isLocalPlayer) return;
 
-        HandleInput();
+        HandleMovement();
     }
 
-    private void HandleInput()
+    private void HandleMovement()
     {
         if (movementInput == Vector2.zero)
             collider.sharedMaterial = standMaterial;
@@ -77,9 +181,14 @@ public class PigController : NetworkBehaviour
         {
             rb.MoveRotation(Quaternion.LookRotation(movement));
         }
-
-        //Select is only valid for a single frame
-        selectInput = false;
     }
+    #endregion
 
+    public override void OnStopLocalPlayer()
+    {
+        base.OnStopLocalPlayer();
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 }

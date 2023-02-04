@@ -17,8 +17,7 @@ public class Sprite4D : MonoBehaviour
         Vector3 camPos = cameraMain.position;
         this.transform.LookAt(new Vector3(camPos.x, transform.position.y, camPos.z));
                 
-        var signedAngle = Vector3.SignedAngle(cameraMain.forward, this.transform.parent.forward, Vector3.up);
-        Debug.Log("Signed angle: " + signedAngle);
+        var signedAngle = Vector3.SignedAngle(cameraMain.forward, this.transform.parent.forward, Vector3.up);        
 
         if (Mathf.Abs(signedAngle) >= 67.5f && Mathf.Abs(signedAngle) <= 112.5f)
         {
