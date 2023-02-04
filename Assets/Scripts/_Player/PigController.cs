@@ -8,6 +8,9 @@ public class PigController : NetworkBehaviour
 {
     public float runSpeed = 1f;
     public GameObject localObjects;
+    public new CapsuleCollider collider;
+    public Rigidbody rb;
+    public PhysicMaterial walkMaterial, standMaterial;
 
     private bool selectInput;
     public void OnSelect(InputAction.CallbackContext ctx)
@@ -49,19 +52,31 @@ public class PigController : NetworkBehaviour
         cineMachine.LookAt = this.transform;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!isLocalPlayer) return;
+
+        HandleInput();
+    }
+
+    private void HandleInput()
+    {
+        if (movementInput == Vector2.zero)
+            collider.sharedMaterial = standMaterial;
+        else
+            collider.sharedMaterial = walkMaterial;        
 
         var movement = new Vector3(movementInput.x, 0f, movementInput.y);
         var m_CamForward = Vector3.Scale(cameraMain.forward, new Vector3(1, 0, 1)).normalized;
         movement = movement.z * m_CamForward + movement.x * cameraMain.right;
         movement.y = 0f;
 
-        this.transform.position = this.transform.position + movement * Time.deltaTime * runSpeed;
+        rb.AddForce(movement * runSpeed, ForceMode.Acceleration);
 
         if (movement.magnitude > 0)
-            this.transform.LookAt(this.transform.position + movement);
+        {
+            rb.MoveRotation(Quaternion.LookRotation(movement));
+        }
 
         //Select is only valid for a single frame
         selectInput = false;
