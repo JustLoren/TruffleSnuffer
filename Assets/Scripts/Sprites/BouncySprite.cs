@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BouncySprite : MonoBehaviour
 {
+    public float minDistanceForBounce = .05f;
     private Vector3 lastPosition;
 
     private float targetElevation, sourceElevation;
@@ -28,7 +29,8 @@ public class BouncySprite : MonoBehaviour
     void Update()
     {
         float bouncePct, rotationPct;
-        if (transform.parent.position != lastPosition)
+        var diff = transform.position - lastPosition;        
+        if (diff.magnitude > minDistanceForBounce)
         {
             isDescending = false;
             lastPosition = transform.parent.position;
