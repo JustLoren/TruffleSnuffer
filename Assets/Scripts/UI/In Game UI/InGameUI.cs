@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InGameUI : MonoBehaviour
 {
+    public AudioSource sfxAudio;
     public RoundWrapup roundOverScreen;
     public GameObject mainMenu;
     public GameObject pauseOverlay;
@@ -14,10 +15,31 @@ public class InGameUI : MonoBehaviour
 
     public TMPro.TextMeshProUGUI roundCounter;
     public Color standardRoundFontColor, intermissionFontColor;
+    public AudioClip roundEndWarning;
+    public float warningVolume = .5f;
     public void SetRoundTime(int timeRemaining)
     {
         roundCounter.text = timeRemaining.ToString();
+
+        if (timeRemaining == 3)
+        {
+            StartCoroutine(TriggerWarningSounds());
+        }
     }
+
+    private IEnumerator TriggerWarningSounds()
+    {
+        sfxAudio.PlayOneShot(roundEndWarning, warningVolume);
+        yield return new WaitForSeconds(1f);
+        sfxAudio.PlayOneShot(roundEndWarning, warningVolume);
+        yield return new WaitForSeconds(1f);
+        sfxAudio.PlayOneShot(roundEndWarning, warningVolume);
+        yield return new WaitForSeconds(.5f);
+        sfxAudio.PlayOneShot(roundEndWarning, warningVolume);
+        yield return new WaitForSeconds(.5f);
+        sfxAudio.PlayOneShot(roundEndWarning, warningVolume);
+    }
+
     public void SetRoundMode(bool isIntermission)
     {
         roundCounter.color = isIntermission ? intermissionFontColor : standardRoundFontColor;

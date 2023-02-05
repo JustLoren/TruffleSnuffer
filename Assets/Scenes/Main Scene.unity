@@ -2208,6 +2208,11 @@ PrefabInstance:
       propertyPath: mainMenu
       value: 
       objectReference: {fileID: 1717504894}
+    - target: {fileID: 2920803695494478922, guid: 59c382edc0ac20642a949c9853c7e2e6,
+        type: 3}
+      propertyPath: sfxAudio
+      value: 
+      objectReference: {fileID: 637738661}
     - target: {fileID: 2920803695494478923, guid: 59c382edc0ac20642a949c9853c7e2e6,
         type: 3}
       propertyPath: m_Pivot.x

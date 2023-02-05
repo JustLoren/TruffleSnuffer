@@ -1354,6 +1354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c8468835b78de449cb4a294ff67c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxAudio: {fileID: 0}
   roundOverScreen: {fileID: 2920803695619132444}
   mainMenu: {fileID: 0}
   pauseOverlay: {fileID: 2920803694258100985}
@@ -1364,6 +1365,8 @@ MonoBehaviour:
   roundCounter: {fileID: 2920803694613297107}
   standardRoundFontColor: {r: 0, g: 0, b: 0, a: 1}
   intermissionFontColor: {r: 1, g: 0, b: 0.15831518, a: 1}
+  roundEndWarning: {fileID: 8300000, guid: b51e776f0f64cf84f80e2e7a63de008b, type: 3}
+  warningVolume: 0.5
   truffleGainFx: {fileID: 4143302809364922470, guid: 233a71024389d0f499ef5676c2ec0bf8,
     type: 3}
   scoreCounterPrefab: {fileID: 4962341831987984025, guid: 1ae02491e5923f64fbf07c604f655fed,

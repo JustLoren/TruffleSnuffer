@@ -41,6 +41,14 @@ public class RoundManager : NetworkBehaviour
 
     public bool IsRoundOngoing => realTimeRemaining > 0f;
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        realTimeRemaining = 0f;
+        delayTimeRemaining = 0f;
+    }
+
     private void Update()
     {
         if (!isServer)
