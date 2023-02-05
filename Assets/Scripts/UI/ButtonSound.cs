@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
 public class ButtonSound : MonoBehaviour, ISelectHandler, IPointerEnterHandler
 {
     public AudioClip hoverClip;

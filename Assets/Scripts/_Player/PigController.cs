@@ -10,11 +10,19 @@ public class PigController : NetworkBehaviour
     public GameObject localObjects;
 
     #region Coloring
-    [SyncVar] private Color color;
+    [SyncVar] public Color color;
     public MeshRenderer indicator;
     private void Colorize()
     {
         indicator.material.color = color;
+
+        if (!isLocalPlayer)
+        {
+            InGameUI.Instance.AddCompetitor(this);
+        } else
+        {
+            InGameUI.Instance.ColorizePlayer(color);
+        }
     }
     #endregion
 
@@ -145,6 +153,10 @@ public class PigController : NetworkBehaviour
         {
             InGameUI.Instance.SetTruffleCount(_new);
             InGameUI.Instance.SpawnTruffleGainFX();
+        } 
+        else
+        {
+            InGameUI.Instance.SetOpponentScore(this, _new);
         }
     }
     #endregion
@@ -245,7 +257,10 @@ public class PigController : NetworkBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
 
-            InGameUI.Instance.Show();
+            InGameUI.Instance?.Show();
+        } else
+        {
+            InGameUI.Instance?.RemoveCompetitor(this);
         }
     }
 }

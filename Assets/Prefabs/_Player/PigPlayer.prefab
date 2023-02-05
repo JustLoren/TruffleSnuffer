@@ -499,6 +499,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   localObjects: {fileID: 2467965312653966538}
+  color: {r: 0, g: 0, b: 0, a: 0}
   indicator: {fileID: 9161304509803978987}
   trufflesGathered: 0
   smellParticples: {fileID: 5558827431727037604}
@@ -553,7 +554,8 @@ AudioSource:
   m_GameObject: {fileID: 8093526820683419383}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7968007625551797821, guid: 472bed5c3f08baf42be65f618082fced,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
