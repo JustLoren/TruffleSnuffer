@@ -99,7 +99,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  roundLength: 10
+  roundLength: 99
   timeBetweenRounds: 10
   timeRemaining: 0
   isIntermission: 0
