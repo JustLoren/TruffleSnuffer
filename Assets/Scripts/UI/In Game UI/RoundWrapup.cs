@@ -8,15 +8,16 @@ public class RoundWrapup : MonoBehaviour
     public Animator anim;
     public TMPro.TextMeshProUGUI winnerDisplay;
     public TMPro.TextMeshProUGUI descriptionBlock;
+    public string winnerText = "It's you. You won.";
+    public string loserText = "It wasn't you. Sorry!";
     public void Show()
     {
-        var pigs = FindObjectsOfType<PigController>().OrderBy(p => p.trufflesGathered).ToList();
-        if (pigs[0].isLocalPlayer)
-            descriptionBlock.text = "It's you. You won.";
-        else
-            descriptionBlock.text = "It wasn't you. Sorry!";
+        var pigs = FindObjectsOfType<PigController>().OrderBy(p => p.trufflesGathered).ThenBy(p => p.netId).ToList();
+        
+        descriptionBlock.text = pigs[0].isLocalPlayer ? winnerText : loserText;
         
         winnerDisplay.color = pigs[0].color;
+
         this.gameObject.SetActive(true);
         anim.ResetTrigger("Hide");
     }

@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 311}
+  m_AnchoredPosition: {x: 0, y: 218}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2920803694085279015
@@ -1558,6 +1558,8 @@ MonoBehaviour:
   anim: {fileID: 2920803695619132419}
   winnerDisplay: {fileID: 2920803695498585529}
   descriptionBlock: {fileID: 2920803695016844071}
+  winnerText: It's you. You won.
+  loserText: It wasn't you. Sorry!
 --- !u!95 &2920803695619132419
 Animator:
   serializedVersion: 5
