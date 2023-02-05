@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InGameUI : MonoBehaviour
 {
+    public RoundWrapup roundOverScreen;
     public GameObject mainMenu;
     public GameObject pauseOverlay;
     public UnityEngine.InputSystem.InputActionReference pauseButton;
@@ -20,6 +21,11 @@ public class InGameUI : MonoBehaviour
     public void SetRoundMode(bool isIntermission)
     {
         roundCounter.color = isIntermission ? intermissionFontColor : standardRoundFontColor;
+
+        if (isIntermission)
+            roundOverScreen.Show();
+        else
+            roundOverScreen.Hide();
     }
 
     public static InGameUI Instance { get; set; }
