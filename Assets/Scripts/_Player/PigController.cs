@@ -13,6 +13,9 @@ public class PigController : NetworkBehaviour
     [SyncVar(hook = nameof(UpdateTruffleCount))] 
     public int trufflesGathered = 0;
     public ParticleSystem smellParticples;
+    public List<AudioClip> snortClips;
+    public AudioClip collectTruffleClip;
+    public AudioSource audioSrc;    
     private float particleEmissionRate;
 
     private Dictionary<GameObject, float> nearbyTruffles = new Dictionary<GameObject, float>();
@@ -48,11 +51,34 @@ public class PigController : NetworkBehaviour
         var invMinDist = 1 - minDistance;
         emission.rateOverTimeMultiplier = (invMinDist * invMinDist) * particleEmissionRate;
 
+        if (minDistance < 1)
+        {
+            DoSnort(minDistance);
+        }
+
         //Select is only valid for a single frame
         if (selectInput)
             TriggerSelect();
 
         selectInput = false;
+    }
+
+    private float lastSnort = 0f;
+    private void DoSnort(float distance)
+    {
+        float delay;
+        if (distance < .3f)
+            delay = .5f;
+        else if (distance < .6f)
+            delay = 1f;
+        else
+            delay = 1.5f;
+
+        if (lastSnort + delay <= Time.time)
+        {
+            audioSrc.PlayOneShot(snortClips[Random.Range(0, snortClips.Count)]);
+            lastSnort = Time.time;
+        }
     }
 
     private (GameObject, float) ClosestTruffle()
@@ -101,6 +127,11 @@ public class PigController : NetworkBehaviour
 
     private void UpdateTruffleCount(int _old, int _new)
     {
+        if (_new > _old)
+        {
+            audioSrc.PlayOneShot(collectTruffleClip);
+        }
+
         if (isLocalPlayer)
         {
             InGameUI.Instance.SetTruffleCount(_new);

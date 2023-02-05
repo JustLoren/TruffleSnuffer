@@ -10,5 +10,5 @@ public class CutoutButton : MonoBehaviour
     {
         if (buttonGraphic == null) buttonGraphic = GetComponentInChildren<UnityEngine.UI.Image>();
         buttonGraphic.alphaHitTestMinimumThreshold = alphaTestThreshold;
-    }
+    }    
 }
