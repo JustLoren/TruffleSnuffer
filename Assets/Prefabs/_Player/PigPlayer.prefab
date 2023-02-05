@@ -502,7 +502,7 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 0, a: 0}
   indicator: {fileID: 9161304509803978987}
   trufflesGathered: 0
-  smellParticples: {fileID: 5558827431727037604}
+  smellParticles: {fileID: 5558827431727037604}
   snortClips:
   - {fileID: 8300000, guid: 10e95f6a3a273e64f95cfd2fe1f7fbcb, type: 3}
   - {fileID: 8300000, guid: c737d498891648c48bea53c2ad78cae1, type: 3}
@@ -759,7 +759,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.9
-      minScalar: 0.75
+      minScalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -811,8 +811,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5.5
-      minScalar: 5.5
+      scalar: 4.75
+      minScalar: 4.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -927,8 +927,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
-      minScalar: 1
+      scalar: 0.5
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1085,7 +1085,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -1138,7 +1138,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -1191,7 +1191,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotation:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -1509,7 +1509,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -3265,7 +3265,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxis: 0
     inWorldSpace: 0
-    multiplyDragByParticleSize: 1
+    multiplyDragByParticleSize: 0
     multiplyDragByParticleVelocity: 1
     dampen: 0
     drag:

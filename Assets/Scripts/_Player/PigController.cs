@@ -29,11 +29,12 @@ public class PigController : NetworkBehaviour
     #region Snuffling
     [SyncVar(hook = nameof(UpdateTruffleCount))] 
     public int trufflesGathered = 0;
-    public ParticleSystem smellParticples;
+    public ParticleSystem smellParticles;
     public List<AudioClip> snortClips;
     public AudioClip collectTruffleClip;
     public AudioSource audioSrc;    
     private float particleEmissionRate;
+    private float maxParticleSize;
 
     private Dictionary<GameObject, float> nearbyTruffles = new Dictionary<GameObject, float>();
 
@@ -54,19 +55,25 @@ public class PigController : NetworkBehaviour
     {
         if (particleEmissionRate <= 0)
         {
-            var initEmission = smellParticples.emission;
+            var initEmission = smellParticles.emission;
             particleEmissionRate = initEmission.rateOverTimeMultiplier;
             initEmission.rateOverTimeMultiplier = 0f;
+
+            var initMain = smellParticles.main;
+            maxParticleSize = initMain.startSizeMultiplier;
         }
 
         if (!isLocalPlayer) return;
 
         (_, var minDistance) = ClosestTruffle();
 
-        var emission = smellParticples.emission;
+        var emission = smellParticles.emission;
 
         var invMinDist = 1 - minDistance;
         emission.rateOverTimeMultiplier = (invMinDist * invMinDist) * particleEmissionRate;
+
+        var main = smellParticles.main;
+        main.startSizeMultiplier = (invMinDist * invMinDist) * maxParticleSize;
 
         if (minDistance < 1)
         {
