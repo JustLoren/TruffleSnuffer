@@ -33834,6 +33834,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: truffle3DAssets
       objectReference: {fileID: 0}
+    - target: {fileID: 1624675338245971193, guid: fa08386e96366d5488f189e2ab8089df,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5447331667604542231, guid: fa08386e96366d5488f189e2ab8089df,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -34102,6 +34107,12 @@ MeshCollider:
 --- !u!4 &3329211394261424789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 449020868001724175, guid: fa08386e96366d5488f189e2ab8089df,
+    type: 3}
+  m_PrefabInstance: {fileID: 2884698525706775962}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3423364066262190705 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fa08386e96366d5488f189e2ab8089df,
     type: 3}
   m_PrefabInstance: {fileID: 2884698525706775962}
   m_PrefabAsset: {fileID: 0}
