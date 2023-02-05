@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ProximityAlert : MonoBehaviour
 {
-    public Transform spawnPoint;    
     public SphereCollider sensor;
     private void OnTriggerStay(Collider other)
     {
@@ -31,6 +30,6 @@ public class ProximityAlert : MonoBehaviour
 
     private void OnDestroy()
     {
-        TruffleSpawner.Instance?.RestoreSpawnPoint(spawnPoint);
+        TruffleSpawner.Instance?.RestoreSpawnPoint();
     }
 }

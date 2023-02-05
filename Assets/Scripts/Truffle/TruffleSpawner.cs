@@ -48,28 +48,66 @@ public class TruffleSpawner : NetworkBehaviour
     public GameObject molePrefab;
     public float moleLifetime = 5f;
     public List<Transform> spawnPoints = new List<Transform>();
+    public Vector3 spawnMin, spawnMax;
 
     private void SpawnTruffle()
     {
-        if (spawnPoints.Count > 0)
-        {
-            var point = spawnPoints[Random.Range(0, spawnPoints.Count)];
-            spawnPoints.Remove(point);
+        var point = GetSpawnPoint();
+        var newTruffle = Instantiate(trufflePrefab, point, Quaternion.identity);            
 
-            var newTruffle = Instantiate(trufflePrefab, point.position, point.rotation);
-            newTruffle.spawnPoint = point;
-
-            NetworkServer.Spawn(newTruffle.gameObject);
-        }
+        NetworkServer.Spawn(newTruffle.gameObject);        
     }
 
-    public void RestoreSpawnPoint(Transform point)
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(spawnMin, new Vector3(spawnMin.x, spawnMin.y, spawnMax.z));
+        Gizmos.DrawLine(spawnMin, new Vector3(spawnMax.x, spawnMin.y, spawnMin.z));
+        Gizmos.DrawLine(spawnMax, new Vector3(spawnMin.x, spawnMin.y, spawnMax.z));
+        Gizmos.DrawLine(spawnMax, new Vector3(spawnMax.x, spawnMin.y, spawnMin.z));
+    }
+        
+    public int spawnLayer;
+    private Vector3 GetSpawnPoint()
+    {
+        Vector3 result = Vector3.zero;
+        RaycastHit hit;
+        bool foundLocation = false;
+        int maxAttempts = 100;
+        int currentAttempts = 0;
+        do
+        {
+            var spawnPt = new Vector3(Random.Range(spawnMin.x, spawnMax.x), Random.Range(spawnMin.y, spawnMax.y), Random.Range(spawnMin.z, spawnMax.z));
+            spawnPt.y = 100f;            
+            if (Physics.Raycast(spawnPt, Vector3.down, out hit, 101, Physics.AllLayers, QueryTriggerInteraction.Collide))
+            {
+                if (hit.collider.gameObject.layer == spawnLayer)
+                {
+                    Debug.DrawRay(spawnPt, Vector3.down * 100, Color.green, 10f);
+                    foundLocation = true;
+                    result = hit.point;
+                } else
+                {
+                    Debug.DrawRay(spawnPt, Vector3.down * 100, Color.red, 10f);
+                }
+            } else
+            {
+                Debug.DrawRay(spawnPt, Vector3.down * 100, Color.yellow, 10f);
+            }
+            
+            if (++currentAttempts >= maxAttempts)
+                throw new System.Exception("We couldn't find a spawn location. wtf, guys.");
+
+        } while (!foundLocation);
+
+        return result;
+    }
+
+    public void RestoreSpawnPoint()
     {
         //Um, how did we spawn this many
-        if (spawnPoints.Count > 0 && (RoundManager.Instance?.IsRoundOngoing).GetValueOrDefault())
+        if ((RoundManager.Instance?.IsRoundOngoing).GetValueOrDefault())
             SpawnTruffle();
-
-        spawnPoints.Add(point);
     }
 
     public void ExpireTruffle(GameObject truffle)
