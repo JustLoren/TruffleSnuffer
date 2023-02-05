@@ -4505,6 +4505,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2983291438604602313, guid: fa08386e96366d5488f189e2ab8089df,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.96
+      objectReference: {fileID: 0}
     - target: {fileID: 449020868001724175, guid: fa08386e96366d5488f189e2ab8089df,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4513,12 +4518,17 @@ PrefabInstance:
     - target: {fileID: 449020868001724175, guid: fa08386e96366d5488f189e2ab8089df,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.2
+      value: 3.03
       objectReference: {fileID: 0}
     - target: {fileID: 625753035296362711, guid: fa08386e96366d5488f189e2ab8089df,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.28
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 625753035296362711, guid: fa08386e96366d5488f189e2ab8089df,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fa08386e96366d5488f189e2ab8089df,
         type: 3}
@@ -4985,7 +4995,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2884698525706775962}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &2884698525287105007
+--- !u!64 &623854110305125741
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4999,7 +5009,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1453043773871479701, guid: fa08386e96366d5488f189e2ab8089df, type: 3}
---- !u!64 &623854110305125741
+--- !u!64 &2884698525287105007
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
