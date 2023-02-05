@@ -74,7 +74,7 @@ public class PigController : NetworkBehaviour
         }
 
         //Select is only valid for a single frame
-        if (selectInput)
+        if (selectInput && !InGameUI.IsPaused)
             TriggerSelect();
 
         selectInput = false;
@@ -209,6 +209,8 @@ public class PigController : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
 
+        InGameUI.Instance.Show();
+
         cameraMain = Camera.main.transform;
 
         var cineMachine = FindObjectOfType<Cinemachine.CinemachineFreeLook>();
@@ -217,14 +219,12 @@ public class PigController : NetworkBehaviour
         cineMachine.enabled = true;
 
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        InGameUI.Instance.Show();        
+        Cursor.lockState = CursorLockMode.Locked;        
     }
 
     private void FixedUpdate()
     {
-        if (!isLocalPlayer) return;
+        if (!isLocalPlayer || InGameUI.IsPaused) return;
 
         HandleMovement();
     }
@@ -254,10 +254,10 @@ public class PigController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            InGameUI.Instance?.Hide();
 
-            InGameUI.Instance?.Show();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;                        
         } else
         {
             InGameUI.Instance?.RemoveCompetitor(this);
