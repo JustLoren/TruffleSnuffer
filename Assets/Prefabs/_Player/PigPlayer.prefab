@@ -509,7 +509,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8e65a593f223e4e489283f3a88bb961e, type: 3}
   collectTruffleClip: {fileID: 8300000, guid: ca74113f0243bac48b1da584fc077625, type: 3}
   audioSrc: {fileID: 8782467065339845639}
-  gatherDistance: 0.1
+  gatherDistance: 0.2
   runSpeed: 10
   collider: {fileID: 5302788589860794655}
   rb: {fileID: 8998499939298655344}

@@ -12,7 +12,7 @@ public class RoundWrapup : MonoBehaviour
     public string loserText = "It wasn't you. Sorry!";
     public void Show()
     {
-        var pigs = FindObjectsOfType<PigController>().OrderBy(p => p.trufflesGathered).ThenBy(p => p.netId).ToList();
+        var pigs = FindObjectsOfType<PigController>().OrderByDescending(p => p.trufflesGathered).ThenBy(p => p.netId).ToList();
         
         descriptionBlock.text = pigs[0].isLocalPlayer ? winnerText : loserText;
         

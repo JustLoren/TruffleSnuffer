@@ -297,7 +297,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  maxTruffleCount: 5
+  maxTruffleCount: 8
   trufflePrefab: {fileID: 7933161120187940540, guid: 8c8ec54b35329ec4faaab51c9e77bea0,
     type: 3}
   molePrefab: {fileID: 4065276329084696850, guid: bf98a54ee94edb94891f6091044feb40,
