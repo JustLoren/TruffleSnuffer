@@ -5,9 +5,13 @@ using UnityEngine;
 public class InGameUI : MonoBehaviour
 {
     public GameObject mainMenu;
+    public GameObject pauseOverlay;
+    public UnityEngine.InputSystem.InputActionReference pauseButton;
+
     public UnityEngine.UI.Image truffleIndicator;
     public TMPro.TextMeshProUGUI truffleCount;
     public static InGameUI Instance { get; set; }
+    public static bool IsPaused => Instance != null && Instance.pauseOverlay.activeSelf;
     private void Start()
     {
         if (Instance == null)
@@ -18,6 +22,31 @@ public class InGameUI : MonoBehaviour
         Hide();
     }
 
+    private void PauseButton_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Pause(!IsPaused);
+    }
+
+    public void Pause(bool toggle)
+    {
+        pauseOverlay.SetActive(toggle);
+
+        if (IsPaused)
+        {
+            var cineMachine = FindObjectOfType<Cinemachine.CinemachineFreeLook>();
+            cineMachine.enabled = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            var cineMachine = FindObjectOfType<Cinemachine.CinemachineFreeLook>();
+            cineMachine.enabled = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
     public void Show()
     {
         mainMenu.SetActive(false);
@@ -26,13 +55,20 @@ public class InGameUI : MonoBehaviour
 
     public void Hide()
     {
-        mainMenu.SetActive(true);
-        this.gameObject.SetActive(false);
+        mainMenu?.SetActive(true);
+        pauseOverlay.SetActive(false);
+        this.gameObject.SetActive(false);        
     }
 
     private void OnEnable()
     {
         SetTruffleCount(0);
+        pauseButton.action.performed += PauseButton_performed;
+    }
+
+    private void OnDisable()
+    {
+        pauseButton.action.performed -= PauseButton_performed;
     }
 
     public void SetTruffleCount(int count)
