@@ -7,7 +7,7 @@ public class TruffleSpawner : NetworkBehaviour
 {
     public int maxTruffleCount = 5;
     #region Singleton shenanigans
-    public static TruffleSpawner Instance { get; private set; }
+    public static TruffleSpawner Instance { get; private set; }    
 
     public override void OnStartServer()
     {
@@ -16,10 +16,23 @@ public class TruffleSpawner : NetworkBehaviour
         if (Instance == null)
             Instance = this;
         else
-            throw new System.Exception("How on earth do we have two truffle spawners?!");
+            throw new System.Exception("How on earth do we have two truffle spawners?!");        
+    }
+
+    public void BeginRound()
+    {
+        foreach (var pig in FindObjectsOfType<PigController>())
+            pig.trufflesGathered = 0;
 
         for (int i = 0; i < maxTruffleCount; i++)
             SpawnTruffle();
+    }
+
+    public void RoundCleanup()
+    {
+        var remainingTruffles = FindObjectsOfType<ProximityAlert>();
+        foreach(var truffle in remainingTruffles)        
+            Destroy(truffle.gameObject);        
     }
 
     public override void OnStopServer()
@@ -53,7 +66,7 @@ public class TruffleSpawner : NetworkBehaviour
     public void RestoreSpawnPoint(Transform point)
     {
         //Um, how did we spawn this many
-        if (spawnPoints.Count > 0)
+        if (spawnPoints.Count > 0 && (RoundManager.Instance?.IsRoundOngoing).GetValueOrDefault())
             SpawnTruffle();
 
         spawnPoints.Add(point);
