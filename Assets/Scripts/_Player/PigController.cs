@@ -236,18 +236,21 @@ public class PigController : NetworkBehaviour
         if (movementInput == Vector2.zero)
             collider.sharedMaterial = standMaterial;
         else
-            collider.sharedMaterial = walkMaterial;        
+            collider.sharedMaterial = walkMaterial;
 
-        var movement = new Vector3(movementInput.x, 0f, movementInput.y);
-        var m_CamForward = Vector3.Scale(cameraMain.forward, new Vector3(1, 0, 1)).normalized;
-        movement = movement.z * m_CamForward + movement.x * cameraMain.right;
-        movement.y = 0f;
-
-        rb.AddForce(movement * runSpeed, ForceMode.Acceleration);
-
-        if (movement.magnitude > 0)
+        if (movementInput != Vector2.zero)
         {
-            rb.MoveRotation(Quaternion.LookRotation(movement));
+            var movement = new Vector3(movementInput.x, 0f, movementInput.y);
+            var m_CamForward = Vector3.Scale(cameraMain.forward, new Vector3(1, 0, 1)).normalized;
+            movement = movement.z * m_CamForward + movement.x * cameraMain.right;
+            movement.y = 0f;
+
+            rb.AddForce(movement * runSpeed, ForceMode.Acceleration);
+
+            if (movement.magnitude > 0)
+            {
+                rb.MoveRotation(Quaternion.LookRotation(movement));
+            }
         }
     }
     #endregion
