@@ -16,7 +16,7 @@ public class ButtonSound : MonoBehaviour, ISelectHandler, IPointerEnterHandler
     }
 
     public void OnSelect(BaseEventData eventData)
-    {
+    {        
         audioSrc.PlayOneShot(hoverClip);
     }
 }

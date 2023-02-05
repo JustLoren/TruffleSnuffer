@@ -9,6 +9,15 @@ public class PigController : NetworkBehaviour
 {
     public GameObject localObjects;
 
+    #region Coloring
+    [SyncVar] private Color color;
+    public MeshRenderer indicator;
+    private void Colorize()
+    {
+        indicator.material.color = color;
+    }
+    #endregion
+
     #region Snuffling
     [SyncVar(hook = nameof(UpdateTruffleCount))] 
     public int trufflesGathered = 0;
@@ -172,6 +181,15 @@ public class PigController : NetworkBehaviour
         {
             Destroy(localObjects);
         }
+
+        Colorize();
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
     }
 
     private Transform cameraMain;
@@ -189,7 +207,7 @@ public class PigController : NetworkBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        InGameUI.Instance.Show();
+        InGameUI.Instance.Show();        
     }
 
     private void FixedUpdate()
@@ -220,13 +238,14 @@ public class PigController : NetworkBehaviour
     }
     #endregion
 
-    public override void OnStopLocalPlayer()
+    private void OnDestroy()
     {
-        base.OnStopLocalPlayer();
+        if (isLocalPlayer)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
 
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        InGameUI.Instance.Show();        
+            InGameUI.Instance.Show();
+        }
     }
 }
