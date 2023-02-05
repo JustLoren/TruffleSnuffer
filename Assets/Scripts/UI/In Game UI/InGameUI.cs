@@ -10,6 +10,18 @@ public class InGameUI : MonoBehaviour
 
     public UnityEngine.UI.Image truffleIndicator;
     public TMPro.TextMeshProUGUI truffleCount;
+
+    public TMPro.TextMeshProUGUI roundCounter;
+    public Color standardRoundFontColor, intermissionFontColor;
+    public void SetRoundTime(int timeRemaining)
+    {
+        roundCounter.text = timeRemaining.ToString();
+    }
+    public void SetRoundMode(bool isIntermission)
+    {
+        roundCounter.color = isIntermission ? intermissionFontColor : standardRoundFontColor;
+    }
+
     public static InGameUI Instance { get; set; }
     public static bool IsPaused => Instance != null && Instance.pauseOverlay.activeSelf;
     private void Start()
