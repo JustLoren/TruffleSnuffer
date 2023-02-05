@@ -33,7 +33,7 @@ public class RoundManager : NetworkBehaviour
     public bool isIntermission;
     private void UpdateIntermission(bool _old, bool _new)
     {
-        InGameUI.Instance?.SetRoundMode(true);
+        InGameUI.Instance?.SetRoundMode(_new);
     }
 
     private float realTimeRemaining = 0f;

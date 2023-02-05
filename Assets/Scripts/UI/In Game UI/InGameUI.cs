@@ -68,8 +68,8 @@ public class InGameUI : MonoBehaviour
     public void Hide()
     {
         mainMenu?.SetActive(true);
-        pauseOverlay.SetActive(false);
-        this.gameObject.SetActive(false);        
+        pauseOverlay?.SetActive(false);
+        this.gameObject?.SetActive(false);        
     }
 
     private void OnEnable()
